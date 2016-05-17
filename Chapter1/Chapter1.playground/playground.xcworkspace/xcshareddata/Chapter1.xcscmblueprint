@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9981D17799FEAE19F162DF14F50E58E885EF1E3E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0266A55FC7C1EFD077813A29632F3B27A84E01AC" : 0,
+    "9981D17799FEAE19F162DF14F50E58E885EF1E3E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "70CAC26D-B4D6-4F2F-A4F1-42C3E0A5A872",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0266A55FC7C1EFD077813A29632F3B27A84E01AC" : "..",
+    "9981D17799FEAE19F162DF14F50E58E885EF1E3E" : "CtCI-6th-Edition-Swift\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Chapter1",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Playgrounds\/Chapter1.playground",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alberto-Vega\/CodeChallenges.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0266A55FC7C1EFD077813A29632F3B27A84E01AC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alberto-Vega\/CtCI-6th-Edition-Swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9981D17799FEAE19F162DF14F50E58E885EF1E3E"
+    }
+  ]
+}
