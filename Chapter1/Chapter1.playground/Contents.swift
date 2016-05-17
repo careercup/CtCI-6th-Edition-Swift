@@ -1,7 +1,9 @@
 import UIKit
 /*:
  ## Chapter 1
- *Question 1.1*
+ **Note:** If you're seeing this text as comments rather than nicely-rendered text, select Editor\Show Rendered Markup in the Xcode menu.
+ 
+ **Question 1.1**
  */
 //: Using a dictionary.
 func isUniqueChars(string: String) -> Bool {
@@ -35,7 +37,7 @@ func isUniqueChars1(string: String) -> Bool {
     return true
 }
 
-//: Lets see if this works. Uncomment the following code to test this methods.
+//: Uncomment the following code to test this methods:
 //let strings = ["abcde", "hello", "apple", "kite", "padle"]
 //for string in strings {
 //    Swift.print("\(string): \(isUniqueChars(string)) \(isUniqueChars1(string))")
@@ -43,9 +45,11 @@ func isUniqueChars1(string: String) -> Bool {
 //        isUniqueChars(string)
 //    var result1 = isUniqueChars1(string)
 //}
-
-//:Question 1.2
-//: Solution #1: Sort the strings.
+/*:
+ **Question 1.2**
+ 
+ Solution #1:
+ */
 func sort(string: String) -> String {
     let content = [Character](string.characters)
     return String(content.sort(){$0 < $1})
@@ -57,13 +61,38 @@ func permutation(string1: String, string2: String) -> Bool {
     }
     return sort(string1) == sort(string2)
 }
+//: Solution #2:
+func permutation2(string1: String, string2: String) -> Bool {
+    if string1.characters.count != string2.characters.count {
+        return false
+    }
+    
+    var letters = [Int](count:128, repeatedValue: 0)
+    
+    for scalar in string1.unicodeScalars {
+        let value = scalar.value
+        let intValue = Int(value)
+        letters[intValue] += 1
+    }
+    
+    for scalar in string2.unicodeScalars {
+        let value = scalar.value
+        let intValue = Int(value)
+        letters[intValue] -= 1
+        if letters[intValue] < 0 {
+            return false
+        }
+    }
+    return true
+}
 
-var stringPairs = [("dog", "god"), ("abc", "bac")]
+//: Uncomment the following code to test this methods.
+var stringPairs = [("dog", "god"), ("abc", "bac"), ("xyz", "yyz")]
 
 for pair in stringPairs {
     permutation(pair.0, string2: pair.1)
+    permutation(pair.0, string2: pair.1)
 }
 
-//: Solution #2: Sort the strings.
 
 

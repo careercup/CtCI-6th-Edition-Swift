@@ -14,7 +14,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Chapter1",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Playgrounds\/Chapter1.playground",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Chapter1\/Chapter1.playground",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alberto-Vega\/CodeChallenges.git",
