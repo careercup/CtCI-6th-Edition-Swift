@@ -16,10 +16,11 @@ func isUniqueChars(string: String) -> Bool {
             return false
         }
         charFlags[(String(item.element))] = true
+        Swift.print(item.element)
     }
     return true
 }
-//: Using the unicode scalar representation, because these unicode scalars represent ASCII characters.
+//: Using the unicode scalar representation since these unicode scalars represent ASCII characters.
 func isUniqueChars1(string: String) -> Bool {
     if string.characters.count > 128 {
         return false
@@ -37,14 +38,14 @@ func isUniqueChars1(string: String) -> Bool {
     return true
 }
 
-//: Uncomment the following code to test this methods:
-//let strings = ["abcde", "hello", "apple", "kite", "padle"]
-//for string in strings {
-//    Swift.print("\(string): \(isUniqueChars(string)) \(isUniqueChars1(string))")
-//    var result =
-//        isUniqueChars(string)
-//    var result1 = isUniqueChars1(string)
-//}
+
+let strings = ["abcde", "hello", "apple", "kite", "padle"]
+for string in strings {
+    Swift.print("\(string): \(isUniqueChars(string)) \(isUniqueChars1(string))")
+    var result =
+        isUniqueChars(string)
+    var result1 = isUniqueChars1(string)
+}
 /*:
  **Question 1.2**
  
@@ -78,6 +79,7 @@ func permutation2(string1: String, string2: String) -> Bool {
     for scalar in string2.unicodeScalars {
         let value = scalar.value
         let intValue = Int(value)
+        Swift.print("\(value)")
         letters[intValue] -= 1
         if letters[intValue] < 0 {
             return false
@@ -86,13 +88,34 @@ func permutation2(string1: String, string2: String) -> Bool {
     return true
 }
 
-//: Uncomment the following code to test this methods.
-var stringPairs = [("dog", "god"), ("abc", "bac"), ("xyz", "yyz")]
+let stringPairs = [("dog", "god"), ("abc", "bac"), ("xyz", "yyz")]
 
 for pair in stringPairs {
     permutation(pair.0, string2: pair.1)
     permutation(pair.0, string2: pair.1)
 }
+
+/*:
+ 
+ **Question 1.6**
+ */
+func compress(string: String) -> String {
+    var compressedString = String()
+    var countConsecutive = 0
+    var counter = 0
+    for char in string.characters.indices {
+        countConsecutive += 1
+        counter += 1
+        if counter >= string.characters.count || string[char] != string[char.successor()] {
+            compressedString += "\(string[char])" + "\(countConsecutive)"
+            countConsecutive = 0
+        }
+    }
+    return compressedString.characters.count < string.characters.count ? compressedString : string
+}
+
+var example = "aabbcccca"
+var result = compress(example)
 
 
 
