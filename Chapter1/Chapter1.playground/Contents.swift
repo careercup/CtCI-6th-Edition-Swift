@@ -3,9 +3,10 @@ import UIKit
  ## Chapter 1
  **Note:** If you're seeing this text as comments rather than nicely-rendered text, select Editor\Show Rendered Markup in the Xcode menu.
  
- **Question 1.1**
+  **Question 1.1**
+ 
+ Using a dictionary.
  */
-//: Using a dictionary.
 func isUniqueChars(string: String) -> Bool {
     if string.characters.count > 128 {
         return false
@@ -49,18 +50,18 @@ for string in strings {
 /*:
  **Question 1.2**
  
- Solution #1:
+ Solution #1: sorting.
  */
-func sort(string: String) -> String {
-    let content = [Character](string.characters)
-    return String(content.sort(){$0 < $1})
-}
-
 func permutation(string1: String, string2: String) -> Bool {
     if string1.characters.count != string2.characters.count {
         return false
     }
     return sort(string1) == sort(string2)
+}
+
+func sort(string: String) -> String {
+    let content = [Character](string.characters)
+    return String(content.sort(){$0 < $1})
 }
 //: Solution #2:
 func permutation2(string1: String, string2: String) -> Bool {
@@ -117,5 +118,42 @@ func compress(string: String) -> String {
 var example = "aabbcccca"
 var result = compress(example)
 
+/*:
+ 
+ **Question 1.6**
+ */
+
+func rotate(inout matrix:[[Int]]) {
+    for layer in 0..<(matrix.count/2) {
+        let first = layer
+        let last = matrix.count - 1 - layer
+        for i in first..<last {
+            let offset = i - first
+            // save the top.
+            let top = matrix[first][i]
+            matrix[first][i] = matrix[last - offset][first]
+            matrix[last - offset][first] = matrix[last][last-offset]
+            matrix[last][last - offset] = matrix[i][last]
+            matrix[i][last] = top
+        }
+    }
+}
+
+func printMatrix(matrix: [[Int]]) {
+    for row in 0..<matrix.count {
+        for column in 0..<matrix[row].count {
+            Swift.print(matrix[row][column], terminator: "  ")
+        }
+        Swift.print("")
+    }
+}
+var matrix =                     [[1,3,6,9],
+                                  [2,4,5,6],
+                                  [3,6,9,12],
+                                  [4,8,16,24]]
+
+
+rotate(&matrix)
+printMatrix(matrix)
 
 
