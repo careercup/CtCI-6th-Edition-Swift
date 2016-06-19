@@ -35,15 +35,26 @@ extension Node {
         }
         return tail
     }
+    
+    class func deleteNode(delete: Node) -> Bool {
+        guard delete.next != nil else {
+           return false
+        }
+        let next = delete.next
+        delete.data = next!.data
+        delete.next = next!.next
+        return true
+    }
 }
 
-// MARK: Test problem 2.1
-
+// Mark: Setup for all problems
 var head = Node(data: 1)
 head.append(4)
 head.append(5)
 head.append(6)
 head.append(4)
+
+// MARK: Test problem 2.1
 print("before: ", terminator: "")
 head.printList()
 head.removeDuplicates()
@@ -55,3 +66,13 @@ head.printList()
 // Reusing the linked list from 2.1
 let k = head.kthToLast(2) // 2nd to last is Node.data = 5
 k.printList()
+
+// MARK: Test problem 2.3
+let delete = head.next!.next
+print("deleteing \(delete!.data!)")
+print("before: ", terminator: "")
+head.printList()
+Node.deleteNode(delete!)
+print("after: ", terminator: "")
+head.printList()
+
