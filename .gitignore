@@ -1,0 +1,8 @@
+.DS_Store
+.build/
+.swift-version
+Sources/.DS_Store
+Sources/Chapter2/.DS_Store
+Sources/Chapter2/Chapter2.playground/playground.xcworkspace/xcuserdata
+
+

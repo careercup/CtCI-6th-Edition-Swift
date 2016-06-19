@@ -17,4 +17,19 @@ public class Node<T> {
             print(data)
         }
     }
+    
+    public func append(data: T) {
+        let tail = Node(data: data)
+        var head = self
+        while(head.next != nil) {
+            head = head.next!
+        }
+        head.next = tail
+    }
+    
+    public func copy() -> Node<T> {
+        let copy = Node(data: self.data!)
+        copy.next = self.next
+        return copy
+    }
 }
