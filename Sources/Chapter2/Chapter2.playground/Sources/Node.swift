@@ -28,7 +28,7 @@ public class Node<T> {
     }
     
     public func copy() -> Node<T> {
-        let copy = Node(data: self.data!)
+        var copy = Node(data: self.data!)
         copy.next = self.next
         return copy
     }

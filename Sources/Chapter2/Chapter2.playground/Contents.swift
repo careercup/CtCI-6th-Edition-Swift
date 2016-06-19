@@ -36,14 +36,36 @@ extension Node {
         return tail
     }
     
+    // MARK: Problem 2.3
     class func deleteNode(delete: Node) -> Bool {
         guard delete.next != nil else {
-           return false
+            return false
         }
         let next = delete.next
         delete.data = next!.data
         delete.next = next!.next
         return true
+    }
+    
+    // MARK: Problem 2.4
+    func partition(data: Int) -> Node {
+        var copy:Node = self
+        var big:Node = self
+        var small:Node = self
+        
+        while copy.next != nil {
+            let next = copy.next
+            if (copy.data as! Int) < data {
+                copy.next = small
+                small = copy
+            } else {
+                big.next = copy
+                big = copy
+            }
+            copy = next!
+        }
+        big.next = nil
+        return small
     }
 }
 
@@ -76,3 +98,11 @@ Node.deleteNode(delete!)
 print("after: ", terminator: "")
 head.printList()
 
+// MARK: Test problem 2.3
+head.append(2)
+head.append(5)
+head.append(9)
+head.append(7)
+head.printList()
+let new = head.partition(5)
+new.printList()
