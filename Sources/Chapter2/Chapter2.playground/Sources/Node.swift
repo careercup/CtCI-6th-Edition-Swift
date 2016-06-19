@@ -20,15 +20,22 @@ public class Node<T> {
     
     public func append(data: T) {
         let tail = Node(data: data)
+        self.append(tail)
+    }
+    
+    public func append(next: Node<T>?) {
+        guard next != nil else {
+            return
+        }
         var head = self
         while(head.next != nil) {
             head = head.next!
         }
-        head.next = tail
+        head.next = next
     }
     
     public func copy() -> Node<T> {
-        var copy = Node(data: self.data!)
+        let copy = Node(data: self.data!)
         copy.next = self.next
         return copy
     }

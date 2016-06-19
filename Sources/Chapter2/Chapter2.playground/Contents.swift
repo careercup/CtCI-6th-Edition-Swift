@@ -67,10 +67,33 @@ extension Node {
         big.next = nil
         return small
     }
+    
+    // MARK: Problem 2.5
+    class func sum(list1: Node?, list2: Node?, carry: Int) -> Node<Int>? {
+        if list1 == nil && list2 == nil && carry == 0 {
+           return nil
+        }
+        var sumList:Node<Int>!
+        var sum = carry
+        if list1 != nil {
+            sum += (list1!.data as! Int)
+        }
+        if list2 != nil {
+            sum += (list2!.data as! Int)
+        }
+        
+        sumList = Node<Int>(data: sum % 10)
+        if list1 != nil || list2 != nil {
+            let new1 = list1 != nil && list1!.next != nil ? list1!.next : nil
+            let new2 = list2 != nil && list2!.next != nil ? list2!.next : nil
+            sumList.append(Node.sum(new1, list2: new2, carry: sum / 10))
+        }
+        return sumList
+    }
 }
 
 // Mark: Setup for all problems
-var head = Node(data: 1)
+var head = Node<Int>(data: 1)
 head.append(4)
 head.append(5)
 head.append(6)
@@ -98,7 +121,7 @@ Node.deleteNode(delete!)
 print("after: ", terminator: "")
 head.printList()
 
-// MARK: Test problem 2.3
+// MARK: Test problem 2.4
 head.append(2)
 head.append(5)
 head.append(9)
@@ -106,3 +129,10 @@ head.append(7)
 head.printList()
 let new = head.partition(5)
 new.printList()
+
+// Mark: Test problem 2.5
+head.printList()
+new.printList()
+let sum:Node<Int> = Node.sum(head, list2: new, carry: 0)!
+sum.printList()
+
