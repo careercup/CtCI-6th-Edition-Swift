@@ -7,6 +7,13 @@ public class Node<T> {
         self.data = data
     }
     
+    public init (arrayOfData: [T]) {
+        self.data = arrayOfData[0]
+        arrayOfData.dropFirst().forEach {
+            self.append($0)
+        }
+    }
+    
     public func printList() {
         var head = self
         while head.next != nil {

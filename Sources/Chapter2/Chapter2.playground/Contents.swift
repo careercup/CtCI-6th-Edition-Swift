@@ -90,6 +90,30 @@ extension Node {
         }
         return sumList
     }
+
+    // MARK: Problem 2.6
+     func isPalindrome() -> Bool {
+        var front:[Int] = []
+        var back:[Int] = []
+        var fast = self.copy()
+        var slow = self.copy()
+        while fast.next?.next != nil {
+            front.append(slow.data as! Int)
+            slow = slow.next!
+            fast = fast.next!.next!
+            
+        }
+        while slow.next != nil {
+            back.append(slow.data! as! Int)
+            slow = slow.next!
+        }
+        back.append(slow.data! as! Int)
+        back = back.reverse()
+        if front.count != back.count {
+            back.popLast()
+        }
+        return front == back
+    }
 }
 
 // Mark: Setup for all problems
@@ -114,7 +138,7 @@ k.printList()
 
 // MARK: Test problem 2.3
 let delete = head.next!.next
-print("deleteing \(delete!.data!)")
+print("deleting \(delete!.data!)")
 print("before: ", terminator: "")
 head.printList()
 Node.deleteNode(delete!)
@@ -130,9 +154,18 @@ head.printList()
 let new = head.partition(5)
 new.printList()
 
-// Mark: Test problem 2.5
+// MARK: Test problem 2.5
 head.printList()
 new.printList()
 let sum:Node<Int> = Node.sum(head, list2: new, carry: 0)!
 sum.printList()
+
+// MARK: Test problem 2.6
+let array = [1, 2, 3, 4, 3, 2, 1]
+let array2 = [1, 2, 3, 4, 3, 2]
+let isTrue = Node(arrayOfData: array)
+let isFalse = Node(arrayOfData: array2)
+print(isTrue.isPalindrome())
+print(isFalse.isPalindrome())
+
 
