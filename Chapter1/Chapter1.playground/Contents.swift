@@ -63,6 +63,7 @@ func sort(string: String) -> String {
     let content = [Character](string.characters)
     return String(content.sort(){$0 < $1})
 }
+
 //: Solution #2:
 func permutation2(string1: String, string2: String) -> Bool {
     if string1.characters.count != string2.characters.count {
@@ -89,11 +90,14 @@ func permutation2(string1: String, string2: String) -> Bool {
     return true
 }
 
+//: Lets test both solutions:
+
+
 let stringPairs = [("dog", "god"), ("abc", "bac"), ("xyz", "yyz")]
 
 for pair in stringPairs {
     permutation(pair.0, string2: pair.1)
-    permutation(pair.0, string2: pair.1)
+    permutation2(pair.0, string2: pair.1)
 }
 
 /*:
@@ -115,12 +119,14 @@ func compress(string: String) -> String {
     return compressedString.characters.count < string.characters.count ? compressedString : string
 }
 
+//: Lets test it:
+
 var example = "aabbcccca"
 var result = compress(example)
 
 /*:
  
- **Question 1.6**
+ **Question 1.7**
  */
 
 func rotate(inout matrix:[[Int]]) {
@@ -147,6 +153,9 @@ func printMatrix(matrix: [[Int]]) {
         Swift.print("")
     }
 }
+
+//: Lets test it:
+
 var matrix =                     [[1,3,6,9],
                                   [2,4,5,6],
                                   [3,6,9,12],
@@ -155,5 +164,88 @@ var matrix =                     [[1,3,6,9],
 
 rotate(&matrix)
 printMatrix(matrix)
+
+/*:
+ 
+ **Question 1.7**
+ */
+
+func setZeros(inout matrix: [[Int]]) {
+    var rowHasZero = false
+    var columnHasZero = false
+    
+    //:Check if the first row has a zero.
+    for j in 0..<matrix[0].count {
+        if matrix[0][j] == 0 {
+            rowHasZero = true
+            break
+        }
+    }
+    
+    //:Check if first column has a zero.
+    for i in 0..<matrix.count {
+        if matrix[i][0] == 0 {
+            columnHasZero = true
+            break
+        }
+    }
+    
+    //:Check for zeros in the rest of the array.
+    for i in 1..<matrix.count {
+        for j in 1..<matrix.count {
+            if matrix[i][j] == 0 {
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+            }
+        }
+    }
+    
+    //:Nullify rows based on values in first column.
+
+    
+    func nullifyRow(inout matrix:[[Int]], row: Int) {
+        for j in 0..<matrix[0].count {
+            matrix[row][j] = 0
+        }
+    }
+    
+    for i in 1..<matrix.count {
+        if matrix[i][0] == 0 {
+            nullifyRow(&matrix, row: i)
+        }
+    }
+    
+    //: Nullify columns based on values in first row.
+    
+    func nullifyColumn(inout matrix:[[Int]], column: Int) {
+        for i in 0..<matrix.count {
+            matrix[i][column] = 0
+        }
+    }
+    
+    for j in 1..<matrix[0].count {
+        if matrix[0][j] == 0 {
+            nullifyColumn(&matrix, column: j)
+        }
+    }
+    
+    //: Nullify first row.
+    if rowHasZero {
+        nullifyRow(&matrix, row: 0)
+    }
+    //: Nullify first column.
+    if columnHasZero {
+        nullifyColumn(&matrix, column: 0)
+    }
+}
+
+//: Lets test it:
+var testMatrix = [[1,0,1,1],
+                  [1,1,1,1],
+                  [1,0,1,1],
+                  [1,0,1,1]]
+
+setZeros(&testMatrix)
+printMatrix(testMatrix)
 
 
