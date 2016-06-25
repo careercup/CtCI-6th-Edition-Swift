@@ -114,6 +114,48 @@ extension Node {
         }
         return front == back
     }
+    
+    // MARK: Problem 2.7
+    class func isIntersecting(list1: Node, list2: Node) -> Node? {
+        // get tail of both nodes
+        var tail1 = list1
+        var tail2 = list2
+        var length1 = 0
+        var length2 = 0
+        while tail1.next != nil && tail2.next != nil {
+            tail1 = tail1.next!
+            tail2 = tail2.next!
+            length1 += 1
+            length2 += 1
+        }
+        if tail1.next == nil {
+            while tail2.next != nil {
+                tail2 = tail2.next!
+                length2 += 1
+            }
+        } else if tail2.next == nil {
+            while tail1.next != nil {
+                tail1 = tail1.next!
+                length1 += 1
+                
+            }
+        }
+        // tails of both must be equal by reference if interesecting
+        guard tail1 === tail2 else {
+            return nil
+        }
+        var copy1 = length1 > length2 ? list1.copy() : list2.copy()
+        var copy2 = length1 > length2 ? list2.copy() : list1.copy()
+        let difference = abs(length1 - length2)
+        for _ in 0..<difference {
+           copy1 = copy1.next!
+        }
+        while copy1 !== copy2 {
+            copy1 = copy1.next!
+            copy2 = copy2.next!
+        }
+        return copy1
+    }
 }
 
 // Mark: Setup for all problems
@@ -168,4 +210,10 @@ let isFalse = Node(arrayOfData: array2)
 print(isTrue.isPalindrome())
 print(isFalse.isPalindrome())
 
-
+// MARK: Test problem 2.7
+print("problem 2.7")
+let long = Node(arrayOfData: [0, 1])
+let short = Node(arrayOfData: array2)
+long.append(short)
+let node = Node.isIntersecting(long, list2: short)
+node?.printList()
