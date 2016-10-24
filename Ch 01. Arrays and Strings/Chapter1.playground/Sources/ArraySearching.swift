@@ -8,17 +8,39 @@
 
 import Foundation
 
+//: Similar to EnumerateGenerator, but returns the index of the elment instead of an Int
 public extension Collection where Indices.Iterator.Element == Index {
     
-    typealias ComparisonResult = (leftIndex: Index, leftElement: Iterator.Element, rightIndex: Index, rightElement: Iterator.Element)
+    func enumeratedIndices() -> Zip2Sequence<Indices, Self> {
+        return zip(indices, self)
+    }
+}
+
+extension Zip2Iterator: Sequence {
     
-    func successiveElements(where predicate: (_ previousElement: Iterator.Element, _ element: Iterator.Element) -> Bool) -> ComparisonResult? {
-        for (i, x) in enumeratedIndices().dropFirst() {
-            let prevI = index(i, offsetBy: -1)
-            let previousElement = self[prevI]
-            if predicate(previousElement, x) {
-                return (prevI, previousElement, i, x)
-            }
+    public func makeIterator() -> Zip2Iterator<Iterator1, Iterator2> {
+        return self
+    }
+}
+
+public extension Collection {
+    
+    func enumeratedPairs() -> Zip2Sequence<Zip2Iterator<Indices.Iterator, Iterator>, Zip2Iterator<Indices.Iterator, Iterator>> {
+        let left = zip(indices, self).makeIterator()
+        var right = left
+        _ = right.next()
+        return zip(left, right)
+    }
+}
+
+public extension Collection where Indices.Iterator.Element == Index {
+    
+    typealias EnumeratedPair = (leftIndex: Index, leftElement: Iterator.Element, rightIndex: Index, rightElement: Iterator.Element)
+    
+    func successiveElements(where predicate: (_ left: Iterator.Element, _ right: Iterator.Element) -> Bool) -> EnumeratedPair? {
+        for ((leftI, left), (rightI, right)) in enumeratedPairs() {
+            guard predicate(left, right) else { continue }
+            return (leftI, left, rightI, right)
         }
         return nil
     }

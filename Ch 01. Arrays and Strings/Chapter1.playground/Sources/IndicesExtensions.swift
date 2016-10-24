@@ -42,14 +42,6 @@ public extension Integer where Stride: SignedInteger {
     }
 }
 
-//: Similar to EnumerateGenerator, but returns the index of the elment instead of an Int
-public extension Collection where Indices.Iterator.Element == Index {
-    
-    func enumeratedIndices() -> Zip2Sequence<Indices, Self> {
-        return zip(indices, self)
-    }
-}
-
 public extension Collection {
     
     var midIndex: Index {

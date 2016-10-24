@@ -5,8 +5,10 @@
 extension RandomAccessCollection where Iterator.Element: RandomAccessCollection, Iterator.Element.Index == Index, Indices.Iterator.Element == Index {
 
     func rotated() -> [[Iterator.Element.Iterator.Element]] {
+        precondition(matrix.count == matrix.first?.count, "matrix must be square")
         let columns = indices.reversed()
         var rotated: [[Iterator.Element.Iterator.Element]] = []
+        
         for column in columns {
             var rotatedRow: [Iterator.Element.Iterator.Element] = []
             for row in self {

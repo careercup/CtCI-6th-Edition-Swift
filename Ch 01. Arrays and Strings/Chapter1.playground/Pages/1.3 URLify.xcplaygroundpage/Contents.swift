@@ -27,12 +27,14 @@ extension String {
     }
 }
 
+let verify = "mr%20john%20smith"
+var string = "mr john smith"
+assert(string.urlIfy() == verify)
 
-var s = "mr john smith    "
-let count = s.characters.count
-s.urlIfyInPlace()
-print("\"\(s)\"")
-assert(count == s.characters.count)
-assert(s == "mr%20john%20smith")
+string = "mr john smith    "
+var copy = string
+copy.urlIfyInPlace()
+print("\"\(copy)\"")
+assert(copy == verify)
 
 
