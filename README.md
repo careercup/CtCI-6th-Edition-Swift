@@ -1,9 +1,4 @@
-# Cracking the Coding Interview Solutions in Swift
+# Swift Solutions to Cracking the Coding Interview, 6th Edition
 
-## Usage
-Compile with
-<pre>
-swift build
-</pre>
+Solutions are implemented in playgrounds, with one playground per chapter, and one playground page per problem.
 
-Executables are located in .build/debug/

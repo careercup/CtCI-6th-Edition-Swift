@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
+    <pages>
+        <page name='3.1 Three in One'/>
+        <page name='3.2 Stack Min'/>
+        <page name='3.3 Stack of Plates'/>
+        <page name='3.4 Queue via Stacks'/>
+        <page name='3.5 Sort Stack'/>
+    </pages>
+</playground>
