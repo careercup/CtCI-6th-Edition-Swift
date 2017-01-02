@@ -1,7 +1,5 @@
-**/xcuserdata
-
-*.DS_Store
-.irb-history
-*.*~
+**/*.xcodeproj/project.xcworkspace/
+**/*.xcodeproj/xcuserdata/
+**/*.playground/playground.xcworkspace/xcuserdata/
 
 
