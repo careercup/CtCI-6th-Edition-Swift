@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
+    <pages>
+        <page name='8.1 Triple Step'/>
+        <page name='8.2 Robot in a Grid'/>
+        <page name='8.3 Magic Index'/>
+        <page name='8.4 Power Set'/>
+        <page name='8.5 Recursive Multiply'/>
+        <page name='8.7 Permutations without Dups'/>
+        <page name='8.8 Permutations with Dups'/>
+        <page name='8.9 All Combintations of Parens'/>
+        <page name='8.10 Paint Fill'/>
+    </pages>
+</playground>
