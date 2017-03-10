@@ -26,4 +26,5 @@ extension String {
 }
 
 let s = "abcd"
-s.allPermutationsOfUniqueString()
+let result = ["abcd", "bacd", "bcad", "bcda", "acbd", "cabd", "cbad", "cbda", "acdb", "cadb", "cdab", "cdba", "abdc", "badc", "bdac", "bdca", "adbc", "dabc", "dbac", "dbca", "adcb", "dacb", "dcab", "dcba"]
+assert(s.allPermutationsOfUniqueString() == result)

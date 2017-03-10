@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
+    <pages>
+        <page name='10.1 Sorted Merge'/>
+        <page name='10.2 Group Anagrams'/>
+        <page name='10.3 Search in Rotated Array'/>
+        <page name='10.5 Sparse Search'/>
+        <page name='10.9 Sorted Matrix Search'/>
+        <page name='Bucket Sort Example'/>
+    </pages>
+</playground>
