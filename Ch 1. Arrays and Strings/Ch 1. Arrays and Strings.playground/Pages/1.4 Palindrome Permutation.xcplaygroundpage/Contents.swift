@@ -2,13 +2,12 @@
 
 extension String {
     
-    func isPalindromePermutation(of: String) -> Bool {
-        let counts1 = characterCounts()
-        let isPalindrome = counts1.filter { e in
+    func isPalindromePermutation() -> Bool {
+        let counts = characterCounts()
+        let lettersWithOddCount = counts.filter { e in
             e.value % 2 != 0
         }
-        let counts2 = of.characterCounts()
-        return isPalindrome.count <= 1 && counts2 == counts1
+        return lettersWithOddCount.count <= 1
     }
 }
 
@@ -23,8 +22,7 @@ extension String {
     }
 }
 
-var s1 = "abccba"
-var s2 = "abcabc"
-assert(s2.isPalindromePermutation(of: s1))
+var s1 = "abcabc"
+assert(s1.isPalindromePermutation())
 
 
