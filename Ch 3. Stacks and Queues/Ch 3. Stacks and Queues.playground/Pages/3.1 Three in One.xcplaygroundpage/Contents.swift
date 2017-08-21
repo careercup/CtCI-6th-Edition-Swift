@@ -5,7 +5,7 @@ import Foundation
  Implement three stacks using a single array
  */
 
-struct MulitStack<Element> {
+struct MultiStack<Element> {
     
     fileprivate var stacks = [[Element]]()
     
@@ -17,30 +17,30 @@ struct MulitStack<Element> {
     }
 }
 
-extension MulitStack {
+extension MultiStack {
     
-    mutating func push(_ element: Element, onToStack: Int) {
-        guard onToStack >= 0 && onToStack < stacks.count else { return }
-        var stack = stacks[onToStack]
-        stack.append(element)
-        stacks[onToStack] = stack
+    mutating func push(_ element: Element, onto stack: Int) {
+        guard stack >= 0 && stack < stacks.count else { return }
+        var item = stacks[stack]
+        item.append(element)
+        stacks[stack] = item
     }
-
-    mutating func pop(stack i: Int) -> Element? {
-        guard i >= 0 && i < stacks.count else { return nil }
-        var stack = stacks[i]
-        let element = stack.popLast()
-        stacks[i] = stack
+    
+    mutating func pop(out stack: Int) -> Element? {
+        guard stack >= 0 && stack < stacks.count else { return nil }
+        var item = stacks[stack]
+        let element = item.popLast()
+        stacks[stack] = item
         return element
     }
-
-    mutating func peek(stack i: Int) -> Element? {
-        guard i >= 0 && i < stacks.count else { return nil }
-        return stacks[i].last
+    
+    mutating func peek(into stack: Int) -> Element? {
+        guard stack >= 0 && stack < stacks.count else { return nil }
+        return stacks[stack].last
     }
 }
 
-extension MulitStack: CustomStringConvertible {
+extension MultiStack: CustomStringConvertible {
     
     var description: String {
         var s = ""
@@ -52,20 +52,20 @@ extension MulitStack: CustomStringConvertible {
 }
 
 var elements = [10, 20, 30, 40]
-var multiStack = MulitStack<Int>(stackCount: elements.count)
+var multiStack = MultiStack<Int>(stackCount: elements.count)
 
 for i in 0..<elements.count {
-    multiStack.push(elements[i], onToStack: i)
+    multiStack.push(elements[i], onto: i)
 }
 
-multiStack.push(21, onToStack: 1)
-multiStack.push(11, onToStack: 0)
-multiStack.push(12, onToStack: 0)
-assert(multiStack.pop(stack: 0) == 12)
-assert(multiStack.peek(stack: 1) == 21)
-assert(multiStack.pop(stack: 1) == 21)
-assert(multiStack.pop(stack: 0) == 11)
+multiStack.push(21, onto: 1)
+multiStack.push(11, onto: 0)
+multiStack.push(12, onto: 0)
+assert(multiStack.pop(out: 0) == 12)
+assert(multiStack.peek(into: 1) == 21)
+assert(multiStack.pop(out: 1) == 21)
+assert(multiStack.pop(out: 0) == 11)
 
 for i in 0..<elements.count {
-    assert(multiStack.peek(stack: i) == elements[i])
+    assert(multiStack.peek(into: i) == elements[i])
 }
