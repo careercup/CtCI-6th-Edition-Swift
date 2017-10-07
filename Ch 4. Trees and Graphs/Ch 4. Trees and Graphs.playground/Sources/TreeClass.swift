@@ -104,8 +104,8 @@ public extension TreeClass {
 extension TreeClass: CustomStringConvertible {
     
     public var description: String {
-        let le = left?.element == nil ? "\(left?.element)" : "\(left!.element)"
-        let re = right?.element == nil ? "\(right?.element)" : "\(right!.element)"
+        let le = left?.element == nil ? "nil" : "\(left!.element)"
+        let re = right?.element == nil ? "nil" : "\(right!.element)"
         let me = "\(element), {\(le), \(re)}  height: \(height)"
         let l = left == nil ? "" : "\n -> " + left!.description
         let r = right == nil ? "" : "\n -> " + right!.description
