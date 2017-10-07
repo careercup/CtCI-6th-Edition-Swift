@@ -5,7 +5,7 @@ import Foundation
  Implement three stacks using a single array
  */
 
-struct MulitStack<Element> {
+struct MultiStack<Element> {
     
     fileprivate var stacks = [[Element]]()
     
@@ -17,7 +17,7 @@ struct MulitStack<Element> {
     }
 }
 
-extension MulitStack {
+extension MultiStack {
     
     mutating func push(_ element: Element, onToStack: Int) {
         guard onToStack >= 0 && onToStack < stacks.count else { return }
@@ -40,7 +40,7 @@ extension MulitStack {
     }
 }
 
-extension MulitStack: CustomStringConvertible {
+extension MultiStack: CustomStringConvertible {
     
     var description: String {
         var s = ""
@@ -52,7 +52,7 @@ extension MulitStack: CustomStringConvertible {
 }
 
 var elements = [10, 20, 30, 40]
-var multiStack = MulitStack<Int>(stackCount: elements.count)
+var multiStack = MultiStack<Int>(stackCount: elements.count)
 
 for i in 0..<elements.count {
     multiStack.push(elements[i], onToStack: i)
