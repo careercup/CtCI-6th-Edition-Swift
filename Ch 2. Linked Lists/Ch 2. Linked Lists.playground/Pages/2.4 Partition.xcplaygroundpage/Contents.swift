@@ -46,6 +46,6 @@ func testPartition(array: [Int], partitionValue: Int) {
 testPartition(array: [3,5,8,5,10,2,1], partitionValue: 5)
 
 ApplyConcurrently(iterations: 2.pow(5)).apply {
-    let randomIntArray = Array<Int>(randomInUpperBound: 100, randomIntCount: 2.pow(5))
+    let randomIntArray = Array<Int>(randomIntUpperBound: 100, randomIntCount: 2.pow(5))
     testPartition(array: randomIntArray, partitionValue: 100.arc4random_uniform())      
 }

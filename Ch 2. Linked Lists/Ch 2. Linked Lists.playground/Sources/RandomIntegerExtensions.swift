@@ -8,10 +8,10 @@
 import Foundation
 
 
-public extension Integer where Stride: SignedInteger {
+public extension FixedWidthInteger where Stride: SignedInteger {
     
     func arc4random_uniform() -> Self {
-        precondition(self > 0 && toIntMax() <= UInt32.max.toIntMax(), "\(self) must be in 0..< \(UInt32.max)")
+        precondition(self > 0 && self <= UInt32.max, "\(self) must be in 0..< \(UInt32.max)")
         let selfAsStride = -distance(to: 0)
         let random = Darwin.arc4random_uniform(numericCast(selfAsStride))
         let zero = self - self
@@ -19,14 +19,14 @@ public extension Integer where Stride: SignedInteger {
         return zero.advanced(by: randomAsStride)
     }
     
-    static func arc4random_uniform2(upperBound: Self) -> Self {
+    static func arc4random_uniform(upperBound: Self) -> Self {
         return upperBound.arc4random_uniform()
     }
 }
 
-public extension Array where Element: Integer, Element.Stride: SignedInteger {
+public extension Array where Element: FixedWidthInteger {
     
-    init(randomInUpperBound bound: UInt32, randomIntCount: Int) {
+    init(randomIntUpperBound bound: UInt32, randomIntCount: Int) {
         let upperBound = Int(bound)
         self = []
         let zero: Element = 0
@@ -51,4 +51,5 @@ public extension String {
         self = String(characters)
     }
 }
+
 
