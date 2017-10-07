@@ -44,7 +44,7 @@ let serialQueue = DispatchQueue(label: "")
 let maxAge = 100
 
 for _ in 0..<100 {
-  var age = maxAge.arc4random_uniform()
+  let age = maxAge.arc4random_uniform()
   let person = Person(age: age, name: "")
   persons.append(person)
 }

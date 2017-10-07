@@ -24,17 +24,6 @@ public extension FixedWidthInteger where Stride: SignedInteger {
     }
 }
 
-//public extension Integer where Stride: SignedInteger {
-//
-//    func arc4random_uniformInteger() -> Self {
-//        precondition(self > 0 && toIntMax() <= UInt32.max.toIntMax(), "\(self) must be in 0..< \(UInt32.max)")
-//        let selfAsStride = Self.allZeros.distance(to: self)
-//        let random = Darwin.arc4random_uniform(numericCast(selfAsStride))
-//        let randomAsStride: Stride = numericCast(random)
-//        return Self.allZeros.advanced(by: randomAsStride)
-//    }
-//}
-
 public extension Array where Element: FixedWidthInteger {
     
     init(randomIntUpperBound bound: UInt32, randomIntCount: Int, negativeValues: Bool = false) {

@@ -3,7 +3,7 @@ import Foundation
 /*:
  10.1 Given to sorted arrays A and B, merge B into A in sorted order.
  */
-extension RandomAccessCollection where Iterator.Element: Comparable, SubSequence.Iterator.Element == Iterator.Element {
+extension RandomAccessCollection where Iterator.Element: Comparable {
   
   func mergeSorted<C: RandomAccessCollection>(sorted: C) -> [Iterator.Element]
     where C.Iterator.Element == Iterator.Element, C.Index == Index {

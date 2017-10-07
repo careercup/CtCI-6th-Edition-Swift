@@ -8,34 +8,31 @@
 import Foundation
 
 
-public extension SignedInteger {
+public extension FixedWidthInteger where Stride: SignedInteger {
     
     func arc4random_uniform() -> Self {
-        precondition(self > 0 && toIntMax() <= UInt32.max.toIntMax(), "\(self) must be in 0..< \(UInt32.max)")
-        let random = Darwin.arc4random_uniform(numericCast(self))
-        return numericCast(random)
-    }
-}
-
-public extension Integer where Stride: SignedInteger {
-    
-    func arc4random_uniformInteger() -> Self {
-        precondition(self > 0 && toIntMax() <= UInt32.max.toIntMax(), "\(self) must be in 0..< \(UInt32.max)")
-        let selfAsStride = Self.allZeros.distance(to: self)
+        precondition(self > 0 && self <= UInt32.max, "\(self) must be in 0..< \(UInt32.max)")
+        let selfAsStride = -distance(to: 0)
         let random = Darwin.arc4random_uniform(numericCast(selfAsStride))
+        let zero = self - self
         let randomAsStride: Stride = numericCast(random)
-        return Self.allZeros.advanced(by: randomAsStride)
+        return zero.advanced(by: randomAsStride)
+    }
+    
+    static func arc4random_uniform(upperBound: Self) -> Self {
+        return upperBound.arc4random_uniform()
     }
 }
 
-public extension Array where Element: Integer, Element.Stride: SignedInteger {
+public extension Array where Element: FixedWidthInteger {
     
     init(randomIntUpperBound bound: UInt32, randomIntCount: Int, negativeValues: Bool = false) {
         let upperBound = Int(bound)
         self = []
+        let zero: Element = 0
         for _ in 0..<randomIntCount {
             let randomInt = upperBound.arc4random_uniform()
-            let element = Element.allZeros.advanced(by: numericCast(randomInt))
+            let element = zero.advanced(by: numericCast(randomInt))
             append(element)
         }
         if negativeValues {
@@ -66,7 +63,7 @@ public extension String {
     }
 }
 
-public extension MutableCollection where Self: RandomAccessCollection {
+public extension MutableCollection where Self: RandomAccessCollection, IndexDistance: FixedWidthInteger, IndexDistance.Stride: SignedInteger {
     
     mutating func shuffle() {
         var i = startIndex
@@ -77,23 +74,23 @@ public extension MutableCollection where Self: RandomAccessCollection {
             let randomDistance = dist.arc4random_uniform()
             let j = index(i, offsetBy: randomDistance)
             guard i != j else { continue }
-            swap(&self[i], &self[j])
+            self.swapAt(i, j)
             formIndex(after: &i)
         }
     }
 }
 
-
-public extension RandomAccessCollection where Self: MutableCollection, Indices.SubSequence.Iterator.Element == Index, Index: Strideable, Index.Stride: SignedInteger, Index.Stride.Stride: SignedInteger {
+public extension RandomAccessCollection where Self: MutableCollection, Index: Strideable & FixedWidthInteger, Index.Stride: SignedInteger & FixedWidthInteger, Index.Stride.Stride: SignedInteger & FixedWidthInteger {
     
     mutating func shuffleInPlace() {
         for i in indices.dropLast() {
             let swapFrom = (i..<endIndex).arc4random
             guard swapFrom != i else { return }
-            swap(&self[i], &self[swapFrom])
+            self.swapAt(i, swapFrom)
         }
     }
 }
+
 
 public extension Sequence {
     
@@ -104,9 +101,10 @@ public extension Sequence {
     }
 }
 
-extension Range where Bound: Strideable, Bound.Stride: SignedInteger, Bound.Stride.Stride: SignedInteger {
+extension Range where Bound: FixedWidthInteger, Bound.Stride: FixedWidthInteger & SignedInteger, Bound.Stride.Stride: SignedInteger  {
     
     var arc4random: Bound {
-        return lowerBound + count.arc4random_uniform()
+        return lowerBound + numericCast(count.arc4random_uniform())
     }
 }
+
