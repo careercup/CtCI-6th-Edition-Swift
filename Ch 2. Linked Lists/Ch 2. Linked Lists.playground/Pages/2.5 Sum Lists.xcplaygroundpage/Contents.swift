@@ -10,7 +10,7 @@ import Foundation
  Output: `2 -> 1 -> 9,  i.e. 912`
  */
 
-extension List where Element: Integer {
+extension List where Element: FixedWidthInteger {
     
     func sum(integerListReversed: List) -> List {
         return sum(rightSide: integerListReversed, carry: 0, result: List())
@@ -32,7 +32,7 @@ extension List where Element: Integer {
     }
 }
 
-public extension Integer {
+public extension FixedWidthInteger {
     
     func digitsArray() -> [Self] {
         return digitsArray(digits: [])
@@ -69,7 +69,7 @@ ApplyConcurrently(iterations: 2.pow(5)).apply {
  list
  */
 
-extension List where Element: Integer, Element.Stride: SignedInteger {
+extension List where Element: FixedWidthInteger, Element.Stride: SignedInteger {
     
     func sum(integerListOrdered: List) -> List {
         let (longer, shorter) = longerAndShorterCollections(other: integerListOrdered)
@@ -83,7 +83,7 @@ extension List where Element: Integer, Element.Stride: SignedInteger {
         guard let left = head, let right = rightSide.head else { return result }
         let elementSum = left + right
         
-        let sum = elementSum * 10.pow(exponent)
+        let sum = elementSum * numericCast(10.pow(exponent))
         return tail.reversedSum(rightSide: rightSide.tail, exponent: exponent - 1, result: sum + result)
     }
 }
@@ -102,3 +102,5 @@ func testSumOrdered() {
 ApplyConcurrently(iterations: 2.pow(5)).apply {
     testSumOrdered()
 }
+
+

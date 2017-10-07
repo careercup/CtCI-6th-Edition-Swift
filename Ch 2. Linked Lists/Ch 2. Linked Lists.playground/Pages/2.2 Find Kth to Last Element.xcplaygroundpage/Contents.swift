@@ -12,7 +12,7 @@ extension List {
 }
 
 func testKthToLastElement() {
-    let randomInts = Array<Int>(randomInUpperBound: 100, randomIntCount: 2.pow(5))
+    let randomInts = Array<Int>(randomIntUpperBound: 100, randomIntCount: 2.pow(5))
     let list = List(array: randomInts)
     
     randomInts.enumerated().forEach { i, element in

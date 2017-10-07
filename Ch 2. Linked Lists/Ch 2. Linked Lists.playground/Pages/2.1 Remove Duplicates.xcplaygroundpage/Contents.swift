@@ -16,7 +16,7 @@ extension List where Element: Hashable {
 }
 
 func testRemoveDuplicates(dupsRemoved: (_ list: List<Int>) -> List<Int>) {
-    let randomInts = Array<Int>(randomInUpperBound: 100, randomIntCount: 2.pow(2))
+    let randomInts = Array<Int>(randomIntUpperBound: 100, randomIntCount: 2.pow(2))
     let set = Set(randomInts)
     let randomUniqueInts = Array(set)
     let list = List(array: randomUniqueInts)
