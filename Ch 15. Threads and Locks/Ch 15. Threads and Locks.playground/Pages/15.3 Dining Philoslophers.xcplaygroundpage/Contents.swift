@@ -166,7 +166,7 @@ var philosopherNames = ["b", "c", "d", "e"]
 let firstPhilosopher = PhilosopherOp(name: "a", left: forks[0], right: forks.last!)
 var philosophers = [firstPhilosopher]
 
-for (i, name) in philosopherNames.enumerated() {
+for (i, _) in philosopherNames.enumerated() {
     let philosopher = PhilosopherOp(name: philosopherNames[i], left: forks[i + 1], right: forks[i])
     philosophers.append(philosopher)
 }
