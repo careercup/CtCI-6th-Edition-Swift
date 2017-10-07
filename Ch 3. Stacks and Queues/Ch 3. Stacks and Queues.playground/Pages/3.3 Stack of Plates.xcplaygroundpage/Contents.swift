@@ -95,7 +95,7 @@ assert(stacks.pop() == 11)
 assert(stacks.pop() == 21)
 
 for x in elements.reversed() {
-    assert(stacks.peek == x, "\(stacks.peek)  \(x)")
+    assert(stacks.peek == x, "\(String(describing: stacks.peek))  \(x)")
     stacks.pop()
 }
 
@@ -105,10 +105,10 @@ for i in 0..<elements.count {
 
 for x in (0..<10).reversed() {
     let e = stacks.popAt(index: 0)
-    assert(e == x, "\(e) \(x)")
+    assert(e == x, "\(String(describing: e)) \(x)")
 }
 
 for x in (10..<20).reversed() {
     let e = stacks.popAt(index: 0)
-    assert(e == x, "\(e) \(x)")
+    assert(e == x, "\(String(describing: e)) \(x)")
 }
