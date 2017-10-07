@@ -53,7 +53,7 @@ public extension Graph {
     }
     
     public func find(_ data: Data) -> GraphNode<Data>? {
-        return nodes.element { node in
+        return nodes.first { node in
             node.data == data
         }
     }
@@ -73,7 +73,7 @@ public final class GraphNode<Data: Hashable> {
 
 public extension GraphNode {
     
-    public static func ==<Data: Hashable>(lhs: GraphNode<Data>, rhs: GraphNode<Data>) ->  Bool {
+    public static func ==<Data>(lhs: GraphNode<Data>, rhs: GraphNode<Data>) ->  Bool {
         return lhs === rhs
     }
 }

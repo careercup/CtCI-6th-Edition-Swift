@@ -1,56 +1,18 @@
 //
-//  CollectionExtensions.swift
+//  Collections.swift
 //
 //  Created by Matthew Carroll on 2/11/16.
-//  Copyright © 2016 Third Cup lc. All rights reserved.
+//  Copyright © 2017 Third Cup lc. All rights reserved.
 //
 
 import Foundation
 
 
-// MARK: - Dictionary - Adding Entries
-
-public extension Dictionary {
-    
-    mutating func addEntries<S: Sequence>(sequence: S) where S.Iterator.Element == (Key, Value) {
-        sequence.forEach { self[$0.0] = $0.1 }
-    }
-    
-    func addingEntries(from d: [Key: Value]) -> [Key: Value] {
-        var dictionary = self
-        d.forEach { dictionary[$0.0] = $0.1 }
-        return dictionary
-    }
-    
-    func addingEntries<S: Sequence>(from sequence: S) -> Dictionary<Key, Value>
-        where S.Iterator.Element == (Key, Value) {
-            var dictionary = self
-            sequence.forEach { dictionary[$0.0] = $0.1 }
-            return dictionary
-    }
-}
-
-public extension Dictionary where Key: Comparable {
-    
-    var valuesSortedByKey: [Value] {
-        return keys.sorted().map { self[$0]! }
-    }
-}
-
 // MARK: - Imperative First Match
 
-public extension Sequence {
+extension Sequence {
     
-    func element(where predicate: (_ element: Iterator.Element) -> Bool) -> Iterator.Element? {
-        for element in self {
-            if predicate(element) {
-                return element
-            }
-        }
-        return nil
-    }
-    
-    func element<T>(where predicate: (_ element: Iterator.Element) -> T?) -> T? {
+    func first<T>(where predicate: (_ element: Iterator.Element) -> T?) -> T? {
         for element in self {
             if let x = predicate(element) {
                 return x
@@ -67,7 +29,7 @@ public extension Sequence {
     }
 }
 
-public extension Sequence {
+extension Sequence {
     
     func accumulate<T>(initial: T? = nil, combine: ([T], Iterator.Element) -> T) -> [T] {
         var elements: [T] = []
@@ -82,7 +44,7 @@ public extension Sequence {
     }
 }
 
-public extension Sequence {
+extension Sequence {
     
     func reduceWhile<T>(_ initial: T, combine: (T, Iterator.Element) -> T?) -> T {
         var combined = initial
@@ -106,7 +68,7 @@ extension RangeReplaceableCollection where Iterator.Element: Equatable {
     }
 }
 
-public extension Collection {
+extension Collection {
     
     func lastIndex(where predicate: (Iterator.Element) -> Bool) -> Index? {
         let reverse = reversed()
@@ -118,7 +80,7 @@ public extension Collection {
 }
 
 /// return the first range of elements where predicate is true
-public extension Sequence {
+extension Sequence {
     
     func takeWhile(predicate: (Iterator.Element) -> Bool) -> [Iterator.Element] {
         var elements: [Iterator.Element] = []
@@ -148,7 +110,7 @@ extension Sequence where SubSequence: Sequence, SubSequence.Iterator.Element == 
 }
 
 /// return the first range of T where predicate is true
-public extension Collection {
+extension Collection {
     
     func takeWhile<T>(predicate: (Index, Iterator.Element) -> T?) -> [T]? {
         var elements: [T] = []
@@ -163,8 +125,7 @@ public extension Collection {
 }
 
 /// returns the first range of predicate
-
-public extension Collection where SubSequence: Collection, SubSequence.Indices.Iterator.Element == Index  {
+extension Collection where SubSequence: Collection  {
     
     func range(where predicate: @escaping (Iterator.Element) -> Bool) -> ClosedRange<Index>? {
         guard let first = index(where: predicate) else { return nil }
@@ -177,27 +138,35 @@ public extension Collection where SubSequence: Collection, SubSequence.Indices.I
     }
 }
 
-
-//: Similar to EnumerateGenerator, but returns the index of the elment instead of an Int
-public extension Collection where Indices.Iterator.Element == Index {
+extension Dictionary where Key: Comparable {
     
-    func enumeratedIndices() -> Zip2Sequence<Indices, Self> {
-        return zip(indices, self)
+    var valuesSortedByKey: [Value] {
+        return keys.sorted().map { self[$0]! }
     }
 }
 
-public extension Collection {
+extension Set {
     
-    var midIndex: Index {
-        let distance = self.distance(from: startIndex, to: endIndex) - 1
-        let mid = distance / 2
-        return index(startIndex, offsetBy: mid)
+    mutating func filtered(_ isIncluded: (Element) -> Bool) {
+        for x in self {
+            if !isIncluded(x) {
+                remove(x)
+            }
+        }
+    }
+    
+    mutating func replaceFirst(with: (Element) -> Element?) {
+        for x in self {
+            guard let replacement = with(x) else { continue }
+            remove(x)
+            insert(replacement)
+            return
+        }
+    }
+    
+    subscript(element: Element) -> Element? {
+        guard let i = index(of: element) else { return nil }
+        return self[i]
     }
 }
 
-public extension Collection {
-    
-    func longerAndShorterCollections(other: Self) -> (longerCollection: Self, shorterCollection: Self) {
-        return count > other.count ? (self, other) : (other, self)
-    }
-}

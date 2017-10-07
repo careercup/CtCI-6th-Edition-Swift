@@ -95,8 +95,8 @@ public extension Tree {
         switch self {
         case .nil: return "nil"
         case .node(let element, _, _):
-            let le = left.element == nil ? "\(left.element)" : "\(left.element!)"
-            let re = right.element == nil ? "\(right.element)" : "\(right.element!)"
+            let le = left.element == nil ? "nil" : "\(left.element!)"
+            let re = right.element == nil ? "nil" : "\(right.element!)"
             let me = "\(element), {\(le), \(re)}  height: \(height)"
             let l = left.isNil ? "" : "\n -> " + left.description
             let r = right.isNil ? "" : "\n -> " + right.description
