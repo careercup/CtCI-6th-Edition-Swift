@@ -7,7 +7,7 @@ extension String {
     
     func urlIfy() -> String {
         var s = ""
-        for c in characters {
+        for c in self {
             s += c == " " ? "%20" : String(c)
         }
         return s

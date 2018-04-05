@@ -24,7 +24,7 @@ extension String {
 extension String {
 
     /// Check if string consists of only unique characters.
-    /// * It's time complexity is O(N^2) and storage is O(1)
+    /// * It's time complexity is O(N*logN) and storage is O(1)
     func hasUniqueCharactersWithoutAdditionalDataStructs() -> Bool {
         if let _ = self.sorted().successiveElements (where: { $0 == $1 }) {
             return false
@@ -35,7 +35,7 @@ extension String {
 
     /// Check if string consists of only unique characters.
     /// * The same limits and solution like in the book.
-    /// * It's time complexity is O(N^2) and storage is O(1)
+    /// * It's time complexity is O(N) and storage is O(1)
     func hasUniqueCharactersASCIIWithoutAdditionalDataStructs() -> Bool {
         var isUnique = true
         var checker: Int32 = 0
