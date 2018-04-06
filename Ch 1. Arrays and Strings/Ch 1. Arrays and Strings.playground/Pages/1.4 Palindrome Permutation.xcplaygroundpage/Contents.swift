@@ -1,30 +1,31 @@
 //: 1.4 Check if a string is a permutation of a palindrome
 
 extension String {
-    
-    func isPalindromePermutation(of: String) -> Bool {
-        let counts1 = characterCounts()
-        let isPalindrome = counts1.filter { e in
-            e.value % 2 != 0
+
+    func isPalindromePermutation() -> Bool {
+        var charactersSet = Set<Character>()
+        for ch in self {
+            if charactersSet.contains(ch) {
+                charactersSet.remove(ch)
+            }
+            else {
+                charactersSet.insert(ch)
+            }
         }
-        let counts2 = of.characterCounts()
-        return isPalindrome.count <= 1 && counts2 == counts1
+
+        var isPalindrom = false
+        if self.count % 2 == 1 && charactersSet.count == 1 {
+            isPalindrom = true
+        }
+        else if charactersSet.isEmpty == true {
+            isPalindrom = true
+        }
+
+        return isPalindrom
     }
+
 }
 
-extension String {
-    
-    func characterCounts() -> [Character: Int] {
-        var characterCounts = [Character: Int]()
-        characters.forEach { c in
-            characterCounts[c] = (characterCounts[c] ?? 0) + 1
-        }
-        return characterCounts
-    }
-}
-
-var s1 = "abccba"
-var s2 = "abcabc"
-assert(s2.isPalindromePermutation(of: s1))
-
-
+"abcrcab".isPalindromePermutation()
+"abccab".isPalindromePermutation()
+"bcrcab".isPalindromePermutation()
