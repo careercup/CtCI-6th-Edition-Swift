@@ -4,8 +4,11 @@
 extension String {
     
     func hasUniqueCharacters() -> Bool {
+        if self.count < 1 {
+            return true
+        }
         var uniqueCharacters = Set<Character>()
-        for c in characters {
+        for c in self {
             guard !uniqueCharacters.contains(c) else { return false }
             uniqueCharacters.insert(c)
         }
@@ -13,6 +16,9 @@ extension String {
     }
     
     func hasUniqueCharactersWithoutAdditionalDataStructs() -> Bool {
+        if self.count < 1 {
+            return true
+        }
         if let _ = characters.sorted().successiveElements (where: { $0 == $1 }) {
             return false
         }
