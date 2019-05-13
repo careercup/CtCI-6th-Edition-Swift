@@ -1,30 +1,35 @@
 //: 1.4 Check if a string is a permutation of a palindrome
+import Foundation
 
 extension String {
     
-    func isPalindromePermutation(of: String) -> Bool {
-        let counts1 = characterCounts()
-        let isPalindrome = counts1.filter { e in
+    func isPalindromePermutation() -> Bool {
+        let charCounts = characterCounts()
+        let charsWithOddCount = charCounts.filter { e in
             e.value % 2 != 0
         }
-        let counts2 = of.characterCounts()
-        return isPalindrome.count <= 1 && counts2 == counts1
+        return charsWithOddCount.count <= 1
     }
 }
 
 extension String {
     
     func characterCounts() -> [Character: Int] {
-        var characterCounts = [Character: Int]()
-        characters.forEach { c in
-            characterCounts[c] = (characterCounts[c] ?? 0) + 1
+        let punctuation = NSMutableCharacterSet.punctuation()
+        punctuation.formUnion(with: NSCharacterSet.whitespaces)
+        return reduce(into: [Character: Int]()) { map, char in
+            let lower = char.lowercased()
+            guard let codeUnit = lower.utf16.first else { return }
+            if !punctuation.characterIsMember(codeUnit) {
+                map[Character(lower), default: 0] += 1
+            }
         }
-        return characterCounts
     }
+
 }
 
-var s1 = "abccba"
-var s2 = "abcabc"
-assert(s2.isPalindromePermutation(of: s1))
+var s1 = "A man, a plan, a canal – Panama"
+let s2 = String(s1.shuffled())
+assert(s2.isPalindromePermutation(), s2)
 
 
