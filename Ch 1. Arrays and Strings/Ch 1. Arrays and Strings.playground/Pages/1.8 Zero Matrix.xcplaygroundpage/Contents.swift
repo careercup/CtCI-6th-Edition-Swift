@@ -5,8 +5,8 @@
 func zeroedMatrix(_ matrix: [[Int]]) -> [[Int]] {
     var zeroedMatrix = matrix
     let zeros = Array(repeating: 0, count: matrix.first?.count ?? 0)
-    for (i, row) in matrix.enumeratedIndices() {
-        guard let column = row.index (where: { $0 == 0 }) else { continue }
+    for (i, row) in matrix.indicesElements() {
+        guard let column = row.firstIndex (where: { $0 == 0 }) else { continue }
         zeroColumns(col: column, matrix: &zeroedMatrix)
         zeroedMatrix[i] = zeros
     }
@@ -15,8 +15,8 @@ func zeroedMatrix(_ matrix: [[Int]]) -> [[Int]] {
 
 func zeroedMatrixInPlace(_ matrix: inout [[Int]]) {
     var zeroedColumns = [Int: Int]()
-    for (i, row) in matrix.enumeratedIndices() {
-        guard let column = row.index (where: { $0 == 0 }) else { continue }
+    for (i, row) in matrix.indicesElements() {
+        guard let column = row.firstIndex (where: { $0 == 0 }) else { continue }
         zeroedColumns[i] = column
     }
     let zeros = Array(repeating: 0, count: matrix.first?.count ?? 0)
@@ -28,7 +28,7 @@ func zeroedMatrixInPlace(_ matrix: inout [[Int]]) {
 
 func zeroColumns(col: Int, matrix: inout [[Int]]) {
     
-    for (i, row) in matrix.enumeratedIndices() {
+    for (i, row) in matrix.indicesElements() {
         var row = row
         row[col] = 0
         matrix[i] = row

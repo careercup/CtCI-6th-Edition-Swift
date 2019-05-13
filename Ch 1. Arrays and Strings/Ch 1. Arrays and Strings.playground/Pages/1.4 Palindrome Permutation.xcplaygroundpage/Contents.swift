@@ -16,8 +16,8 @@ extension String {
     
     func characterCounts() -> [Character: Int] {
         var characterCounts = [Character: Int]()
-        characters.forEach { c in
-            characterCounts[c] = (characterCounts[c] ?? 0) + 1
+        for char in self {
+            characterCounts[char] = (characterCounts[char] ?? 0) + 1
         }
         return characterCounts
     }

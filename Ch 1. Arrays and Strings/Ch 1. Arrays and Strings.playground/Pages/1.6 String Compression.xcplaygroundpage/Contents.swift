@@ -9,34 +9,24 @@ extension String {
     
     func compressedString() -> String {
         guard !isEmpty else { return self }
-        var s = "\(characters[startIndex])"
-        var count = 1
-        for c in characters.dropFirst() {
-            let p = s.characters.last
-            if c == p {
-                count += 1
+        var compressed = "\(self[startIndex])"
+        var compressions = 1
+        for char in dropFirst() {
+            let p = compressed.last
+            if char == p {
+                compressions += 1
                 continue
             }
-            s += "\(count)" + "\(c)"
-            count = 1
+            compressed += "\(compressions)" + "\(char)"
+            compressions = 1
         }
-        if count > 1 {
-            s += "\(count)"
+        if compressions > 1 {
+            compressed += "\(compressions)"
         }
-        return s.characters.count < characters.count ? s : self
+        return compressed.count < count ? compressed : self
     }
 }
 
 var s = "aabcccccaaa"
-assert(s.compressedString() == "a2b1c5a3")
-"aaabb".compressedString()
-
-
-
-
-
-
-
-
-
-
+let compressed = s.compressedString()
+assert(compressed == "a2b1c5a3", "\(compressed) != a2b1c5a3")

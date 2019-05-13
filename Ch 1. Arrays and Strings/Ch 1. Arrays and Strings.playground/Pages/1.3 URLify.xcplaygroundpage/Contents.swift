@@ -7,23 +7,21 @@ extension String {
     
     func urlIfy() -> String {
         var s = ""
-        for c in characters {
-            s += c == " " ? "%20" : String(c)
+        for char in self {
+            s += char == " " ? "%20" : String(char)
         }
         return s
     }
     
     mutating func urlIfyInPlace() {
         var replacements = 0
-        withMutableCharacters { cv in
-            for i in cv.indices where cv[i] == " " {
-                cv.replaceSubrange(i...i, with: "%".characters)
-                let next = cv.index(after: i)
-                cv.insert(contentsOf: "20".characters, at: next)
-                replacements += 1
-            }
-            cv = cv.dropLast(replacements * 2)
+        for i in indices where self[i] == " " {
+            replaceSubrange(i...i, with: "%")
+            let next = index(after: i)
+            insert(contentsOf: "20", at: next)
+            replacements += 1
         }
+        removeLast(replacements * 2)
     }
 }
 

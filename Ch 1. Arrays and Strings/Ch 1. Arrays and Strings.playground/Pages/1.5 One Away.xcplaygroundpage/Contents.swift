@@ -5,19 +5,19 @@
 extension String {
     
     func zeroOrOneEditAway(from s: String) -> Bool {
-        let (shorter, longer) = characters.count < s.characters.count ? (self, s) : (s, self)
-        for (i, c) in shorter.characters.enumeratedIndices() {
-            let c2 = longer.characters[i]
-            guard c != c2 else { continue }
+        let (shorter, longer) = count < s.count ? (self, s) : (s, self)
+        for (i, charShorter) in shorter.indicesElements() {
+            let charLonger = longer[i]
+            guard charShorter != charLonger else { continue }
             var s2 = shorter
-            if shorter.characters.count == longer.characters.count {
-                s2.replaceAtIndex(i: i, c: longer.characters[i])
+            if shorter.count == longer.count {
+                s2.replaceAtIndex(i: i, c: longer[i])
                 return s2 == longer
             }
-            s2.insert(c2, at: i)
+            s2.insert(charLonger, at: i)
             return s2 == longer
         }
-        return longer.characters.count - shorter.characters.count <= 1
+        return longer.count - shorter.count <= 1
     }
 }
 

@@ -5,18 +5,16 @@ extension String {
     
     func hasUniqueCharacters() -> Bool {
         var uniqueCharacters = Set<Character>()
-        for c in characters {
-            guard !uniqueCharacters.contains(c) else { return false }
-            uniqueCharacters.insert(c)
+        for char in self {
+            guard !uniqueCharacters.contains(char) else { return false }
+            uniqueCharacters.insert(char)
         }
         return true
     }
     
     func hasUniqueCharactersWithoutAdditionalDataStructs() -> Bool {
-        if let _ = characters.sorted().successiveElements (where: { $0 == $1 }) {
-            return false
-        }
-        return true
+        let repeatedElements = sorted().successiveElements (where: { $0 == $1 })
+        return repeatedElements == nil ? true : false
     }
 }
 
