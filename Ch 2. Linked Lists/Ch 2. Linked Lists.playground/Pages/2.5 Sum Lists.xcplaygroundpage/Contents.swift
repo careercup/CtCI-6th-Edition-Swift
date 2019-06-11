@@ -10,7 +10,7 @@ import Foundation
  Output: `2 -> 1 -> 9,  i.e. 912`
  */
 
-extension List where Element: Integer {
+extension List where Element: BinaryInteger {
     
     func sum(integerListReversed: List) -> List {
         return sum(rightSide: integerListReversed, carry: 0, result: List())
@@ -32,7 +32,7 @@ extension List where Element: Integer {
     }
 }
 
-public extension Integer {
+public extension BinaryInteger {
     
     func digitsArray() -> [Self] {
         return digitsArray(digits: [])
@@ -48,8 +48,8 @@ public extension Integer {
 
 func testSumListsReversed() {
     
-    let x = 1000.arc4random_uniform()
-    let y = 100.arc4random_uniform()
+    let x = Int.random(in: 0...1000)
+    let y = Int.random(in: 0...100)
     
     let leftList = List(array: x.digitsArray().reversed())
     let rightList = List(array: y.digitsArray().reversed())
@@ -69,7 +69,7 @@ ApplyConcurrently(iterations: 2.pow(5)).apply {
  list
  */
 
-extension List where Element: Integer, Element.Stride: SignedInteger {
+extension List where Element: FixedWidthInteger {
     
     func sum(integerListOrdered: List) -> List {
         let (longer, shorter) = longerAndShorterCollections(other: integerListOrdered)
@@ -83,14 +83,14 @@ extension List where Element: Integer, Element.Stride: SignedInteger {
         guard let left = head, let right = rightSide.head else { return result }
         let elementSum = left + right
         
-        let sum = elementSum * 10.pow(exponent)
+        let sum = elementSum * Element(10).pow(Element(exponent))
         return tail.reversedSum(rightSide: rightSide.tail, exponent: exponent - 1, result: sum + result)
     }
 }
 
 func testSumOrdered() {
-    let x = 1000.arc4random_uniform()
-    let y = 100.arc4random_uniform()
+    let x = Int.random(in: 0...1000)
+    let y = Int.random(in: 0...100)
     let leftList = List(array: x.digitsArray())
     let rightList = List(array: y.digitsArray())
     let summedList = leftList.sum(integerListOrdered: rightList)

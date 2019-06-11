@@ -7,41 +7,6 @@
 
 import Foundation
 
-
-public extension Integer where Stride: SignedInteger {
-    
-    public static func +<SI: SignedInteger>(x: Self, y: SI) -> Self {
-        let yInteger = allZeros.advanced(by: numericCast(y))
-        return x + yInteger
-    }
-    
-    public static func -<SI: SignedInteger>(x: Self, y: SI) -> Self {
-        let yInteger = allZeros.advanced(by: numericCast(y))
-        return x - yInteger
-    }
-    
-    public static func *<SI: SignedInteger>(x: Self, y: SI) -> Self {
-        let yInteger = allZeros.advanced(by: numericCast(y))
-        return x * yInteger
-    }
-    
-    public static func /<SI: SignedInteger>(x: Self, y: SI) -> Self {
-        let yInteger = allZeros.advanced(by: numericCast(y))
-        return x / yInteger
-    }
-    
-    func pow(_ n: Self) -> Self {
-        let selfInt: Int = numericCast(asStride)
-        let nInt: Int = numericCast(n.asStride)
-        let result = Darwin.pow(Double(selfInt), Double(nInt))
-        return Self.allZeros.advanced(by: numericCast(Int(result)))
-    }
-    
-    private var asStride: Stride {
-        return Self.allZeros.distance(to: self)
-    }
-}
-
 //: Similar to EnumerateGenerator, but returns the index of the elment instead of an Int
 public extension Collection {
     
@@ -65,7 +30,7 @@ public extension Collection {
     }
 }
 
-public extension Integer {
+public extension FixedWidthInteger {
     
     var isEven: Bool {
         return self % 2 == 0

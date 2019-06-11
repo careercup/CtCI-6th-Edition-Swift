@@ -7,7 +7,7 @@
 
 import Foundation
 
-// The List type from functional languages like Haskell, ML, etc
+//: The List type from functional languages like Haskell, ML, etc
 
 private enum ListNode<Element>: ExpressibleByArrayLiteral {
     
