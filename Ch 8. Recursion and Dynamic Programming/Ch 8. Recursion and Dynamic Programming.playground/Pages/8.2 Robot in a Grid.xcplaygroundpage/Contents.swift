@@ -40,7 +40,6 @@ indirect enum Cell: CustomStringConvertible {
 struct Coordinate: Hashable {
   let x: Int
   let y: Int
-  var hashValue: Int { return x.hashValue + y.hashValue }
 }
 
 extension Coordinate: CustomStringConvertible {

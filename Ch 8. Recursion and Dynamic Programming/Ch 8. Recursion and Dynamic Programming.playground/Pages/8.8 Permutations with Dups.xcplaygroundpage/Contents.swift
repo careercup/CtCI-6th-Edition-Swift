@@ -10,10 +10,10 @@ extension String {
     var self_ = self
     var allPermutations = Set([String(self_.remove(at: startIndex))])
     
-    for char in self_.characters {
+    for char in self_ {
       var permutations = Set<String>()
       for perm in allPermutations {
-        for i in perm.characters.indices {
+        for i in perm.indices {
           var perm = perm
           perm.insert(char, at: i)
           guard !permutations.contains(perm) else { break }

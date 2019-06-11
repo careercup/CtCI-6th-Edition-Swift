@@ -10,11 +10,11 @@ func combinationsOfPairsOfParentheses(count: Int) -> Set<String> {
   for _ in 1..<count {
     var combinations = Set<String>()
     for s in allCombintations {
-      s.characters.indices.forEach { i in
+      for i in s.indices {
         level += s[i] == "(" ? 1 : -1
         if level > 0 {
           var s = s
-          s.insert(contentsOf: ["(", ")"], at: s.characters.index(after: i))
+          s.insert(contentsOf: ["(", ")"], at: s.index(after: i))
           combinations.insert(s)
         }
       }
@@ -25,5 +25,6 @@ func combinationsOfPairsOfParentheses(count: Int) -> Set<String> {
   return allCombintations
 }
 
-var p = Array(combinationsOfPairsOfParentheses(count: 3)).sorted()
-assert(p == ["((()))", "(()())", "(())()", "()(())", "()()()"])
+let setOfParens = combinationsOfPairsOfParentheses(count: 3)
+let parensSorted = Array(setOfParens).sorted()
+assert(parensSorted == ["((()))", "(()())", "(())()", "()(())", "()()()"])
