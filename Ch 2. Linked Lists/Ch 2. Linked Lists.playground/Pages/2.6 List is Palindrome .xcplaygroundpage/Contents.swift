@@ -18,7 +18,7 @@ extension List where Element: Equatable {
     }
 }
 
-let palindromeChars = "tacocat".characters.reduce([]) { $0 + [$1] }
+let palindromeChars = "tacocat".reduce(into: []) { $0.append($1) }
 let listCharacters = List(array: palindromeChars)
 assert(listCharacters.isPalindrome())
 assert(listCharacters.dropFirst().isPalindrome() == false)

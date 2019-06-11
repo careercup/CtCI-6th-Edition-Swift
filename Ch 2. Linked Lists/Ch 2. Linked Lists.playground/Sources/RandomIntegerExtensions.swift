@@ -7,49 +7,29 @@
 
 import Foundation
 
-
-public extension FixedWidthInteger where Stride: SignedInteger {
+public extension FixedWidthInteger {
     
-    func arc4random_uniform() -> Self {
-        precondition(self > 0 && self <= UInt32.max, "\(self) must be in 0..< \(UInt32.max)")
-        let selfAsStride = -distance(to: 0)
-        let random = Darwin.arc4random_uniform(numericCast(selfAsStride))
-        let zero = self - self
-        let randomAsStride: Stride = numericCast(random)
-        return zero.advanced(by: randomAsStride)
+    func pow(_ n: Self) -> Self {
+        let selfInt: Int = numericCast(asStride)
+        let nInt: Int = numericCast(n.asStride)
+        let result = Darwin.pow(Double(selfInt), Double(nInt))
+        return Self.init().advanced(by: numericCast(Int(result)))
     }
     
-    static func arc4random_uniform(upperBound: Self) -> Self {
-        return upperBound.arc4random_uniform()
+    private var asStride: Stride {
+        return -distance(to: 0)
     }
 }
 
 public extension Array where Element: FixedWidthInteger {
     
-    init(randomIntUpperBound bound: UInt32, randomIntCount: Int) {
-        let upperBound = Int(bound)
+    init(randomInUpperBound bound: Int, randomIntCount: Int) {
         self = []
-        let zero: Element = 0
+        let range: Range<Element> = 0..<numericCast(bound)
         for _ in 0..<randomIntCount {
-            let randomInt = upperBound.arc4random_uniform()
-            let element = zero.advanced(by: numericCast(randomInt))
-            append(element)
+            let randomInt = Element.random(in: range)
+            append(randomInt)
         }
     }
 }
-
-public extension String {
-    
-    init(randomLettersOfCount count: Int) {
-        let firstAsciiValue = 97
-        let maxOffset = 5
-        let range = 0..<count
-        let characters = range.map { _ -> Character in
-            let codeUnit = UInt8(maxOffset.arc4random_uniform() + firstAsciiValue)
-            return Character(UnicodeScalar(codeUnit))
-        }
-        self = String(characters)
-    }
-}
-
 

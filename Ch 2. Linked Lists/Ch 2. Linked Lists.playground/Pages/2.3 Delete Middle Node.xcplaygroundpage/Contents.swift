@@ -17,8 +17,8 @@ extension MutableList {
 
 final class MutableList<Element>: ExpressibleByArrayLiteral {
     
-    fileprivate(set) var head: Element?
-    fileprivate(set) var tail: MutableList?
+    private(set) var head: Element?
+    private(set) var tail: MutableList?
     
     convenience init(arrayLiteral: Element...) {
         self.init(array: arrayLiteral)
