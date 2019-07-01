@@ -46,14 +46,14 @@ extension GraphNode {
 
 public extension Graph {
     
-    public func markNodesUnvisited() {
+    func markNodesUnvisited() {
         nodes.forEach { node in
             node.visited = false
         }
     }
     
-    public func find(_ data: Data) -> GraphNode<Data>? {
-        return nodes.first { node in
+    func find(_ data: Data) -> GraphNode<Data>? {
+        return nodes.element { node in
             node.data == data
         }
     }
@@ -73,7 +73,7 @@ public final class GraphNode<Data: Hashable> {
 
 public extension GraphNode {
     
-    public static func ==<Data>(lhs: GraphNode<Data>, rhs: GraphNode<Data>) ->  Bool {
+    static func ==<Data: Hashable>(lhs: GraphNode<Data>, rhs: GraphNode<Data>) ->  Bool {
         return lhs === rhs
     }
 }
@@ -82,7 +82,9 @@ extension GraphNode: Equatable {}
 
 extension GraphNode: Hashable {
     
-    public var hashValue: Int { return data.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(data)
+    }
 }
 
 extension GraphNode: CustomStringConvertible {

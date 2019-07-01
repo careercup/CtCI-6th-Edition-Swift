@@ -17,7 +17,7 @@ import Foundation
  `possible output: f, e, a, b, d, c`
  */
 
-extension Graph {
+extension Graph where Data: Hashable {
     
     init(projects: [Data], projectDependencies: [(project: Data, dependency: Data)]) {
         var connectedNodes = [Data: [Data]]()

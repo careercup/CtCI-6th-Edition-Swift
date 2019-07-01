@@ -16,7 +16,7 @@ public enum Tree<Element: Comparable> {
 
 public extension Tree {
     
-    public init?(sortedIncreasing: [Element]) {
+    init?(sortedIncreasing: [Element]) {
         guard let node = Tree.insert(sortedIncreasing), let element = node.element else { return nil }
         self = .node(element: element, left: node.left, right: node.right)
     }
@@ -32,21 +32,21 @@ public extension Tree {
 
 public extension Tree {
     
-    public var element: Element? {
+    var element: Element? {
         switch self {
         case .nil: return nil
         case .node(let element, _, _): return element
         }
     }
     
-    public var left: Tree {
+    var left: Tree {
         switch self {
         case .nil: return .nil
         case .node(_, let leftChild, _): return leftChild
         }
     }
     
-    public var right: Tree {
+    var right: Tree {
         switch self {
         case .nil: return .nil
         case .node(_, _, let rightChild): return rightChild
@@ -56,7 +56,7 @@ public extension Tree {
 
 public extension Tree {
     
-    public func insert(_ x: Element) -> Tree {
+    func insert(_ x: Element) -> Tree {
         switch self {
         case .nil: return .node(element: x, left: .nil, right: .nil)
         case .node(let element, let left, let right):
@@ -65,7 +65,7 @@ public extension Tree {
         }
     }
     
-    public func find(_ x: Element) -> Tree? {
+    func find(_ x: Element) -> Tree? {
         switch self {
         case .nil: return nil
         case .node(let element, let left, let right):
@@ -74,7 +74,7 @@ public extension Tree {
         }
     }
     
-    public var height: Int {
+    var height: Int {
         switch self {
         case .nil: return 0
         case .node: return depth(height: -1)
@@ -91,12 +91,12 @@ public extension Tree {
 
 public extension Tree {
     
-    public var description: String {
+    var description: String {
         switch self {
         case .nil: return "nil"
         case .node(let element, _, _):
-            let le = left.element == nil ? "nil" : "\(left.element!)"
-            let re = right.element == nil ? "nil" : "\(right.element!)"
+            let le = left.element == nil ? "\(String(describing: left.element))" : "\(left.element!)"
+            let re = right.element == nil ? "\(String(describing: right.element))" : "\(right.element!)"
             let me = "\(element), {\(le), \(re)}  height: \(height)"
             let l = left.isNil ? "" : "\n -> " + left.description
             let r = right.isNil ? "" : "\n -> " + right.description

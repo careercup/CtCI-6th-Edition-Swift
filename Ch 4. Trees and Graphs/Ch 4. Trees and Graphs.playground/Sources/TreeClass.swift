@@ -28,7 +28,7 @@ public final class TreeClass<Element: Comparable> {
 
 public extension TreeClass {
     
-    public convenience init?(sortedIncreasing: [Element]) {
+    convenience init?(sortedIncreasing: [Element]) {
         guard let node = TreeClass.insert(sortedIncreasing) else { return nil }
         self.init(element: node.element, left: node.left, right: node.right)
     }
@@ -44,7 +44,7 @@ public extension TreeClass {
 
 public extension TreeClass {
     
-    public convenience init(element: Element, leftElement: Element?, rightElement: Element?) {
+    convenience init(element: Element, leftElement: Element?, rightElement: Element?) {
         var left: TreeClass<Element>?
         if let leftElement = leftElement {
             left = TreeClass(element: leftElement, left: nil, right: nil)
@@ -59,7 +59,7 @@ public extension TreeClass {
 
 public extension TreeClass {
     
-    public func insert(_ x: Element) -> Int {
+    func insert(_ x: Element) -> Int {
         if x <= element {
             if let left = left {
                 height = left.insert(x) + 1
@@ -104,8 +104,8 @@ public extension TreeClass {
 extension TreeClass: CustomStringConvertible {
     
     public var description: String {
-        let le = left?.element == nil ? "nil" : "\(left!.element)"
-        let re = right?.element == nil ? "nil" : "\(right!.element)"
+        let le = left?.element == nil ? "\(String(describing: left?.element))" : "\(left!.element)"
+        let re = right?.element == nil ? "\(String(describing: right?.element))" : "\(right!.element)"
         let me = "\(element), {\(le), \(re)}  height: \(height)"
         let l = left == nil ? "" : "\n -> " + left!.description
         let r = right == nil ? "" : "\n -> " + right!.description
