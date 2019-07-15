@@ -1,5 +1,5 @@
 //
-//  IntegerExtensions.swift
+//  IndicesExtensions.swift
 //
 //  Created by Matthew Carroll on 2/11/16.
 //  Copyright © 2016 Matthew Carroll. All rights reserved.
@@ -8,18 +8,32 @@
 import Foundation
 
 
-public extension BinaryInteger where Stride: SignedInteger {
+public extension FixedWidthInteger {
     
-    public func pow(_ n: Self) -> Self {
+    func pow(_ n: Self) -> Self {
         let selfInt: Int = numericCast(asStride)
         let nInt: Int = numericCast(n.asStride)
         let result = Darwin.pow(Double(selfInt), Double(nInt))
-        let zero: Self = 0
-        return zero.advanced(by: Int(result))
+        return Self.init().advanced(by: numericCast(Int(result)))
     }
     
-    var asStride: Stride {
-        return -(distance(to: 0))
+    private var asStride: Stride {
+        return -distance(to: 0)
+    }
+}
+
+public extension Collection {
+    
+    var midIndex: Index {
+        let mid = distance(from: startIndex, to: endIndex) / 2
+        return index(startIndex, offsetBy: mid)
+    }
+}
+
+public extension Collection {
+    
+    func longerAndShorterCollections(other: Self) -> (longerCollection: Self, shorterCollection: Self) {
+        return count > other.count ? (self, other) : (other, self)
     }
 }
 
@@ -29,5 +43,3 @@ public extension BinaryInteger {
         return self % 2 == 0
     }
 }
-
-

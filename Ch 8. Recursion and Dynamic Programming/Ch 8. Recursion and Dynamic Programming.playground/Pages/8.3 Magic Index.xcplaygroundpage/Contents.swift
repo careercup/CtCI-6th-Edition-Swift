@@ -4,7 +4,7 @@ import Foundation
  8.3 A magic index in an array A[0..n-1] is defined as an index such that A[i] = i. Given a sorted array of distinct integers, write a method to find a magic index in A, if one exists.
  */
 
-extension RandomAccessCollection where Index: FixedWidthInteger, Index == Iterator.Element {
+extension RandomAccessCollection where Index: BinaryInteger, Index == Iterator.Element {
   
   func magicIndex() -> Index? {
     return magicIndex(low: startIndex, high: index(before: endIndex))

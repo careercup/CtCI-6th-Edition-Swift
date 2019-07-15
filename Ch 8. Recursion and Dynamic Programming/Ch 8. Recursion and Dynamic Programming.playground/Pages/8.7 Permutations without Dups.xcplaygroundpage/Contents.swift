@@ -7,12 +7,12 @@ import Foundation
 extension String {
   
   func allPermutationsOfUniqueString() -> [String] {
-    guard let last = characters.last else { return [""] }
+    guard let last = last else { return [""] }
     var permutations = ["\(last)"]
-    characters.dropLast().reversed().forEach { c in
+    dropLast().reversed().forEach { c in
       var nextPermutations = [String]()
       permutations.forEach { permutation in
-        permutation.characters.indices.forEach { i in
+        permutation.indices.forEach { i in
           var permutation = permutation
           permutation.insert(c, at: i)
           nextPermutations.append(permutation)
