@@ -32,7 +32,7 @@ n.insert(m, i: 2, j: 6)
 var nString = String(n, radix: 2)
 var mString = String(m, radix: 2)
 var endIndex = nString.index(nString.endIndex, offsetBy: -i)
-var startIndex = nString.index(endIndex, offsetBy: -mString.characters.count)
+var startIndex = nString.index(endIndex, offsetBy: -mString.count)
 assert(nString[startIndex..<endIndex] == mString)
 
 
@@ -45,6 +45,6 @@ n.insert(m, i: 4, j: 12)
 nString = String(n, radix: 2)
 mString = String(m, radix: 2)
 endIndex = nString.index(nString.endIndex, offsetBy: -i)
-startIndex = nString.index(endIndex, offsetBy: -mString.characters.count)
+startIndex = nString.index(endIndex, offsetBy: -mString.count)
 assert(nString[startIndex..<endIndex] == mString)
 

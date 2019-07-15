@@ -1,21 +1,6 @@
 import Foundation
 
 
-public extension FixedWidthInteger  {
-    
-    var bitsSetCount: Int {
-        var bitsSetCount = 0
-        let selfInt: Int = numericCast(self)
-        for i in 0..<64 {
-            let mask = 1 << i
-            if selfInt & mask == mask {
-                bitsSetCount += 1
-            }
-        }
-        return bitsSetCount
-    }
-}
-
 public extension Int {
     
     func setBit(i: Int) -> Int {
@@ -27,11 +12,52 @@ public extension Int {
     }
 }
 
+public extension FixedWidthInteger where Stride: SignedInteger {
+    
+    var bitsSetCount: Int {
+        var bitsSetCount = 0
+        let selfInt: Int = numericCast(-distance(to: 0))
+        for i in 0..<64 {
+            let mask = 1 << i
+            if selfInt & mask == mask {
+                bitsSetCount += 1
+            }
+        }
+        return bitsSetCount
+    }
+}
+
+extension FixedWidthInteger where Stride: SignedInteger {
+    
+    var factorial: Self {
+        guard self > 1 else { return 1 }
+        let selfInt: Int = numericCast(-distance(to: 0))
+        let range = 1...selfInt
+        return Self(range.reduce(1, *))
+    }
+}
+
+extension Set {
+    
+    func combinations(n: Int, k: Int) -> Int {
+        guard n >= 0 && k <= n else { return 0 }
+        let left = (n - k + 1)...n
+        let right = 1...k
+        let pairs = zip(left, right)
+        return pairs.reduce(1) { $0 * $1.0 / $1.1 }
+    }
+    
+    func combinations(k: Int) -> Int {
+        guard k <= count else { return 0 }
+        return count.factorial / (k.factorial * (count - k).factorial)
+    }
+}
+
 extension FixedWidthInteger where Stride: SignedInteger {
     
     var twosComplement: Int {
         guard self != 0 else { return 0 }
-        let absv: Int = abs(distance(to: 0))
+        let absv: Int = numericCast(abs(-distance(to: 0)))
         let msbPosition = self.msbPosition + 1
         let complement = 2.pow(msbPosition) - absv
         let mask = ~0 << msbPosition
@@ -39,7 +65,7 @@ extension FixedWidthInteger where Stride: SignedInteger {
     }
     
     var msbPosition: Int {
-        var absv: Int = abs(distance(to: 0))
+        var absv: Int = numericCast(abs(-distance(to: 0)))
         var position = 0
         var i = 0
         while absv > 0 {
@@ -54,15 +80,15 @@ extension FixedWidthInteger where Stride: SignedInteger {
     
     var twosComplement2: Int {
         guard self != 0 else { return 0 }
-        let selfInt: Int = distance(to: 0)
-        let lsbPosition = absv().lsbPosition
+        let selfInt: Int = numericCast(-distance(to: 0))
+        let lsbPosition = absv.lsbPosition
         let mask = ~0 << (lsbPosition - 1)
         let complement = ~selfInt & mask
         return complement | 1 << (lsbPosition - 1)
     }
     
     var lsbPosition: Int {
-        var absv: Int = abs(distance(to: 0))
+        var absv: Int = numericCast(abs(-distance(to: 0)))
         var i = 0
         while absv > 0 {
             if absv & 1 == 1 {
@@ -77,7 +103,7 @@ extension FixedWidthInteger where Stride: SignedInteger {
 
 public extension FixedWidthInteger {
     
-    func absv() -> Self {
+    var absv: Self {
         let zero: Self = self - self
         return self < zero ? zero - self : self
     }
@@ -85,8 +111,8 @@ public extension FixedWidthInteger {
 
 public extension FixedWidthInteger where Stride: SignedInteger {
     
-    func binaryString() -> String {
-        let selfInt: Int = distance(to: 0)
+    var binaryString: String {
+        let selfInt: Int = numericCast(-distance(to: 0))
         var string = ""
         for i in 0..<64 {
             let mask = 1 << i
@@ -98,11 +124,16 @@ public extension FixedWidthInteger where Stride: SignedInteger {
 }
 
 
-public extension FixedWidthInteger {
+public extension SignedInteger {
     
-    func asBinaryString() -> String {
+    var asBinaryString: String {
         return String(self, radix: 2)
     }
 }
 
-
+public extension UnsignedInteger {
+    
+    var asBinaryString: String {
+        return String(self, radix: 2)
+    }
+}
