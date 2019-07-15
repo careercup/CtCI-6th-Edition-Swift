@@ -7,7 +7,7 @@ import Foundation
 struct FizzBuzzIteratorConcurrent: IteratorProtocol {
     
     private var range: CountableClosedRange<Int>
-    private var index: ClosedRangeIndex<Int>
+    private var index: ClosedRange<Int>.Index
     
     init(n: Int) {
         precondition(n >= 1, "n must be >= 1")
