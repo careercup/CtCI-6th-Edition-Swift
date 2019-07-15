@@ -8,7 +8,7 @@ extension RandomAccessCollection where Iterator.Element: Comparable, Indices.Ite
   func binarySearchShiftedArray(x: Iterator.Element) -> Index? {
     guard first! > last! else { return binarySearch(x: x) }
     
-    guard let minElementIndex = successiveElements (where: { $0 > $1 })?.rightIndex else {
+    guard let minElementIndex = successiveElements(where: { $0 > $1 })?.rightIndex else {
       return binarySearch(x: x)
     }
     

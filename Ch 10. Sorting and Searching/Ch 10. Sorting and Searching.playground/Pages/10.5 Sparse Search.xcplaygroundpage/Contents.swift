@@ -31,5 +31,5 @@ extension RandomAccessCollection where Iterator.Element: Comparable {
 }
 
 var array = ["at", "", "", "", "ball", "", "", "car", "", "dad", "", "", ""]
-assert(array.sparseSearchFor(x: "dad", ignoreElement: "") == array.index(of: "dad"))
+assert(array.sparseSearchFor(x: "dad", ignoreElement: "") == array.firstIndex(of: "dad"))
 

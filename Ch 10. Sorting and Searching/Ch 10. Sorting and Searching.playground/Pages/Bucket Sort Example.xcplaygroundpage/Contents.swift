@@ -39,14 +39,11 @@ extension Collection where Iterator.Element: PersonType {
   }
 }
 
-var persons = [Person]()
-let serialQueue = DispatchQueue(label: "")
 let maxAge = 100
-
-for _ in 0..<100 {
-  let age = maxAge.arc4random_uniform()
-  let person = Person(age: age, name: "")
-  persons.append(person)
+let persons = (0..<100).reduce(into: [Person]()) { persons, _ in
+    let age = Int.random(in: 0..<maxAge)
+    let person = Person(age: age, name: "")
+    persons.append(person)
 }
 
 let bucketSorted = persons.bucketSortByAge()
