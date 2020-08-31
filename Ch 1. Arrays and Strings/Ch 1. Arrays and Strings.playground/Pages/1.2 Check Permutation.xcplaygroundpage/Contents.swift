@@ -5,7 +5,7 @@
 // case and punctuation sensitive
 extension String {
     
-    func isPermutation(s: String) -> Bool {
+    func isPermutation(of s: String) -> Bool {
         return characterCounts() == s.characterCounts()
     }
 }
@@ -24,6 +24,6 @@ extension String {
 let s1 = "elvis"
 let s2 = "lives"
 
-assert(s2.isPermutation(s: s1))
+assert(s2.isPermutation(of: s1))
 
 
